@@ -1084,7 +1084,8 @@ public class MainActivity extends AppCompatActivity {
         webView.onPause();
         try {
             if (updateRecirver != null) {
-                this.unregisterReceiver(updateRecirver);
+                unregisterReceiver(updateRecirver);
+                updateRecirver = null;
             }
         } catch (Exception e) {
             // already unregistered
@@ -1103,8 +1104,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(updateRecirver);
+
+        if(updateRecirver !=null){
+            getApplicationContext().unregisterReceiver(updateRecirver);
+           //this.updateRecirver = null;
+        }
 
         if (webView != null) {
             webView.setWebViewClient(null);
@@ -1119,6 +1123,7 @@ public class MainActivity extends AppCompatActivity {
             webView.destroy();
             webView = null;
         }
+        super.onDestroy();
     }
 
 
