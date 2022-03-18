@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GPE Mi Asistente Digital Standard</string>
+    <string name="no_internet_conection">Parece que no estás conectado a Internet!.Pueden existir páginas
+        no guardadas en cache </string>
+</resources>
