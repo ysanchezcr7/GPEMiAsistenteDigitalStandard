@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private String URLPrincipal = "https://gpetest.simbiosis-dg-apps.com";
-    private String URLSaltoTutorial = "https://gpetest.simbiosis-dg-apps.com/menu.html";
+    //private String URLSaltoTutorial = "https://gpetest.simbiosis-dg-apps.com/menu.html";
     int detectError = 0;
     CircleImageView floatingActionButton;
     private BroadcastReceiver updateRecirver = null;
@@ -117,22 +117,27 @@ public class MainActivity extends AppCompatActivity {
                     if (webView.getUrl().equals("file:///android_asset/error404.html") && detectError == 1) {
                         detectError = 0;
                         showAlertSalirApp();
+
                         //finish();
 
                     } else {
                         webView.loadUrl("https://gpetest.simbiosis-dg-apps.com/menu.html");
+
                         //webView.goBack();// goBack () significa volver a la página anterior de webView
                     }
                 } else {
+
                     showAlertSalirApp();
                     //finish();
 
                 }
                 NoVisibleFloating();
+
             }
         });
         webView = findViewById(R.id.webView);
-        //webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+
+        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         // webView.addJavascriptInterface(new WebAppInterface(this), "Android");
         //WebSettings webSettings = webView.getSettings();
@@ -144,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
             webView.getSettings().setCacheMode(
                     WebSettings.LOAD_CACHE_ELSE_NETWORK);
         }
+
+
         // settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
 // almacenamiento (almacenamiento)
@@ -175,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 //// Cuando el ancho de la página es mayor que el ancho de WebView, reduzca para que el ancho de la página sea igual al ancho de WebView
         settings.setLoadWithOverviewMode(true);
 //// Algoritmo de diseño
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+       settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
 //// Si es compatible con Javascript, el valor predeterminado es falso
         settings.setJavaScriptEnabled(true);
 //// Si es compatible con múltiples ventanas, el valor predeterminado es falso
@@ -298,7 +305,8 @@ public class MainActivity extends AppCompatActivity {
 // Get the Snackbar's layout view
                 Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
 //If the view is not covering the whole snackbar layout, add this line
-                layout.setPadding(0, 0, 0, 0);
+                layout.setPadding(1, 1, 1, 1);
+
 // Show the Snackbar
                 snackbar.show();
 //            Toast.makeText(context, "¡Parece que no estás conectado a Internet!. Pueden existir páginas " +
@@ -993,6 +1001,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         finish();
                         dialogInterface.dismiss();
+                        NoVisibleFloating();
                         Toast.makeText(getApplicationContext(), "Cerrando la Aplicacion",
                                 Toast.LENGTH_LONG).show();
                     }
