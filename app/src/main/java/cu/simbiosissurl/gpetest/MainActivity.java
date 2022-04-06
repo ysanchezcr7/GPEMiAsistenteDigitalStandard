@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     Handler handler = new Handler(); // En esta zona creamos el objeto Handler
 
 
-    private String URLPrincipal = "https://gpetest.simbiosis-dg-apps.com";
+    private String URLPrincipal = "https://gpestandard.simbiosis-dg-apps.com";
     //private String URLSaltoTutorial = "https://gpetest.simbiosis-dg-apps.com/menu.html";
     int detectError = 0;
     CircleImageView floatingActionButton;
@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                     if (webView.getUrl().equals("file:///android_asset/error404.html") && detectError == 1) {
                         detectError = 0;
                         showAlertSalirApp();
-
                         //finish();
 
                     } else {
@@ -126,10 +125,8 @@ public class MainActivity extends AppCompatActivity {
                         //webView.goBack();// goBack () significa volver a la página anterior de webView
                     }
                 } else {
-
                     showAlertSalirApp();
                     //finish();
-
                 }
                 NoVisibleFloating();
 
@@ -150,24 +147,39 @@ public class MainActivity extends AppCompatActivity {
                     WebSettings.LOAD_CACHE_ELSE_NETWORK);
         }
 
+        // webView.getSettings (). setBlockNetworkImage (true); // coloca la carga de la imagen al final
+        // para cargar la representación
+        webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
 
-        // settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+//        File dir = getCacheDir();
+//        Log.e("sada",""+ dir);
+
 
 // almacenamiento (almacenamiento)
+        WebSettings websettings = webView.getSettings();
+        websettings.setDomStorageEnabled(true);  // Open DOM storage function
+        websettings.setAppCacheMaxSize(1024*1024*8);
+        String appCachePath = this.getApplicationContext().getCacheDir().getAbsolutePath();
+        websettings.setAppCachePath(appCachePath);
+     //   websettings.setAllowFileAccess(true);    // Readable file cache
+        websettings.setAppCacheEnabled(true);    //Turn on the H5(APPCache) caching function
+
 // Habilita la API de almacenamiento DOM de HTML5, el valor predeterminado es falso
-        settings.setDomStorageEnabled(true);
+  //      settings.setDomStorageEnabled(true);
 //// Habilite la API de base de datos Web SQL, esta configuración afectará a todas las WebViews en el mismo proceso, el valor predeterminado es falso
 //// Esta API está en desuso
         //String cacheDirPath = getApplicationContext().getCacheDir() + APP_CACAHE_DIRNAME;
-        settings.setDatabaseEnabled(true);
-        settings.setAppCacheEnabled(true);
-
-        settings.setDatabasePath(getApplicationContext().getCacheDir().getAbsolutePath());
+        //settings.setDatabaseEnabled(true);
+//        settings.setAppCacheEnabled(true);
+//        File directory=getApplicationContext().getExternalFilesDir("/cachWebView");
+//        if (!directory.exists())
+//            directory.mkdirs();
+//        settings.setDatabasePath(String.valueOf(directory));
 //// Para habilitar la API de cachés de aplicaciones, debe establecer una ruta de caché válida para que surta efecto, el valor predeterminado es falso
-        // settings.setAppCachePath(cacheDirPath);
-        webView.getSettings().setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
+       // settings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
+       // webView.getSettings().setAppCachePath(String.valueOf(directory));
         //settings.setAppCachePath(MainActivity.this.getCacheDir().getAbsolutePath());
-        settings.setAppCacheMaxSize(Long.MAX_VALUE);
+   //     settings.setAppCacheMaxSize(Long.MAX_VALUE);
 
 //// ubicación
         settings.setGeolocationEnabled(true);
@@ -1010,7 +1022,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
-
                     }
                 }).show();
 
