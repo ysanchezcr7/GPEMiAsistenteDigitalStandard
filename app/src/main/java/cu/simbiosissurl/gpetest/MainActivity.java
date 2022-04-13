@@ -95,8 +95,9 @@ public class MainActivity extends AppCompatActivity {
     Handler handler = new Handler(); // En esta zona creamos el objeto Handler
 
 
-    private String URLPrincipal = "https://gpestandard.simbiosis-dg-apps.com";
-    //private String URLSaltoTutorial = "https://gpetest.simbiosis-dg-apps.com/menu.html";
+    private String URLPrincipal = "https://gpestandard.simbiosis-dg-apps.com/";
+
+    private String URLmENU = "https://gpestandard.simbiosis-dg-apps.com/menu.html";
     int detectError = 0;
     CircleImageView floatingActionButton;
     private BroadcastReceiver updateRecirver = null;
@@ -113,15 +114,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (webView.canGoBack()) {// ¿Hay una página anterior cuando hago clic en el botón Atrás
-
                     if (webView.getUrl().equals("file:///android_asset/error404.html") && detectError == 1) {
                         detectError = 0;
                         showAlertSalirApp();
                         //finish();
-
                     } else {
-                        webView.loadUrl("https://gpetest.simbiosis-dg-apps.com/menu.html");
-
+                        webView.loadUrl(URLmENU);
                         //webView.goBack();// goBack () significa volver a la página anterior de webView
                     }
                 } else {
@@ -129,11 +127,9 @@ public class MainActivity extends AppCompatActivity {
                     //finish();
                 }
                 NoVisibleFloating();
-
             }
         });
         webView = findViewById(R.id.webView);
-
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         // webView.addJavascriptInterface(new WebAppInterface(this), "Android");
@@ -373,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 urlE = webResourceRequest.getUrl().toString();
             }
-            if (urlE.equals("https://gpetest.simbiosis-dg-apps.com/")) {
+            if (urlE.equals(URLPrincipal)) {
                 detectError = 1;
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -1060,7 +1056,7 @@ public class MainActivity extends AppCompatActivity {
         if (webView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK) {// ¿Hay una página anterior cuando hago clic en el botón Atrás
 
 
-            if (webView.getUrl().equals("https://gpetest.simbiosis-dg-apps.com/menu.html")) {
+            if (webView.getUrl().equals(URLmENU)) {
                 showAlertSalirApp();
             } else if (webView.getUrl().equals("file:///android_asset/error404.html") && detectError == 1) {
                 detectError = 0;
@@ -1070,7 +1066,7 @@ public class MainActivity extends AppCompatActivity {
                 //       Toast.LENGTH_LONG).show();
                 //webView.goBack();
             } else if (webView.getUrl().equals("file:///android_asset/error404.html") && detectError == 0) {
-                webView.loadUrl("https://gpetest.simbiosis-dg-apps.com/menu.html");
+                webView.loadUrl(URLmENU);
             } else {
                 webView.goBack(); // goBack () significa volver a la página anterior de webView
             }
